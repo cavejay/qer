@@ -2,7 +2,7 @@
 
 Solution Name: Qer
 Spec Author: cavejay@github
-Spec Version: 0.0.1
+Spec Version: 0.0.2
 
 ## Purpose
 
@@ -149,7 +149,7 @@ The HTTP Body should remain empty for this request.
 
 **Body**
 
-The HTTP Body must include a reason for removing this queue and also include the (if any) passcode a second time.
+The HTTP Body must include a reason for removing this queue and also include the (if any) passcode a second time. A valid reason must be at least 5 alphanumeric characters and can include '-', '\_' and ' '.
 
 ```json
 {
@@ -163,6 +163,9 @@ The HTTP Body must include a reason for removing this queue and also include the
 - Successful deletion of channel
   - Status = 200 OK
   - Body = `{status: 200, message: "Success"}`
+- Request Body does not include a valid reason
+  - Status = 200 Bad Request
+  - Body = `{status: 400, message: "DELETE requests must include a valid reason.", error: "Delete Request must include a valid reason for deletion."}`
 - Request does not have a body
   - Status = 400 Bad Request
   - Body = `{status: 400, message: "DELETE requests must include a body.", error: "Delete Request must include a HTTP Body"}`
