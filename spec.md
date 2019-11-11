@@ -1,7 +1,9 @@
 # Specification for 'Qer' interface
 
 Solution Name: Qer
+
 Spec Author: cavejay@github
+
 Spec Version: 0.0.2
 
 ## Purpose
