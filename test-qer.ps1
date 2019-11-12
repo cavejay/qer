@@ -16,5 +16,40 @@
 
 PARAM (
     [String] $Address = 'localhost',
-    [String] $Port = '13000' 
+    [String] $Port = '13000',
+    [String] $ExecutionCommand
 )
+
+if ($ExecutionCommand) {
+    Write-host "Execution command was provided. Local instance of app will be tested and launched with that."
+
+}
+
+Describe 'Simple' {
+    It "Channel creation provides expected response" {
+
+    }
+    It "GET from newly created channel" {
+
+    }
+    It "Expected failure for GET from uncreated channel" {
+
+    }
+    It "GET from empty channel" {
+
+    }
+    It "POST to already created channel correctly queues payloads" {
+
+    }
+}
+
+Describe 'Strict Tests' {
+    Context 'GET /api/:channel' {
+        It "" {
+
+        }
+        It "" {
+
+        }
+    }
+}
