@@ -1,6 +1,8 @@
 const { Cottage, Response } = require("cottage");
 const bodyParser = require("koa-bodyparser");
 
+const multipartBodyParser = require("koa-body");
+
 const app = new Cottage();
 app.use(bodyParser());
 
@@ -42,7 +44,12 @@ let qs = {};
 app.post("/api/:channel", async ctx => {
   const cName = ctx.request.params.channel;
 
-  console.log(ctx.request.body);
+  console.log(
+    `Recieved POST on '/api/${ctx.request.params.channel}'`,
+    ctx.request.body
+  );
+
+  console.log(ctx.request.body[unparsed]);
 
   // Checks
   if (undefined === ctx.request.body) {
@@ -56,11 +63,17 @@ app.post("/api/:channel", async ctx => {
   // Success
   if (Object.keys(qs).includes(cName)) {
     qs[cName].q.push(ctx.request.body);
+
+    console.log(qs);
+
     return new Response(200, { status: 200, message: "Success" });
   } else {
     qs[cName] = { q: [] };
     qs[cName].q.push(ctx.request.body);
-    return new Response(204, {
+
+    console.log(qs);
+
+    return new Response(201, {
       status: 201,
       message: "Channel created successfully"
     });
@@ -69,6 +82,8 @@ app.post("/api/:channel", async ctx => {
 
 app.get("/api/:channel", async ctx => {
   const cName = ctx.request.params.channel;
+
+  console.log(`Recieved GET on '/api/${ctx.request.params.channel}'`);
 
   // Checks
   if (ctx.request.body && ctx.request.body.length > 0) {
@@ -89,10 +104,14 @@ app.get("/api/:channel", async ctx => {
     return new Response(204, { status: 204, message: "Queue empty" });
   }
 
-  // Success
-  return new Response(200, {
+  const successValue = {
     status: 200,
-    message: "bby got data",
+    message: "Success",
     data: qs[cName].q.shift()
-  });
+  };
+
+  console.log(`Responded with:`, successValue);
+
+  // Success
+  return new Response(200, successValue);
 });

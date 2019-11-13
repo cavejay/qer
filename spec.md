@@ -4,7 +4,7 @@ Solution Name: Qer
 
 Spec Author: cavejay@github
 
-Spec Version: 0.0.2
+Spec Version: 0.0.3
 
 ## Purpose
 
@@ -44,6 +44,16 @@ The following sections are grouped as with the relevant HTTP methods in square b
 
 Where a dynamic URI element is used it is represented using a colon `:`. These elements will be replaced with something during run time. Eg. A Post request to `/api/:channel` represents any request to a URI that matches `^/api/[^/]+$`.
 
+### [GET] /api
+
+This endpoint is to welcome user to Qer and identify the service.
+
+**Responses**
+
+- GET request of any kind.
+  - Status = 200 OK
+  - Body = "Welcome to Qer, the simple HTTP based queue service"
+
 ### [POST] /api/:channel
 
 Making a `POST /api/:channel` request will either append data to a Channel's queue or create a new Channel. Where a new channel is created it can be created with a passcode that must be matched on all future interactions to that channel. There are some restrictions on Channel naming as outlined below, but incoming payloads can be any valid JSON.
@@ -51,7 +61,7 @@ Making a `POST /api/:channel` request will either append data to a Channel's que
 **URI Parameters**
 
 - :channel
-  - Must be less than 64 characters
+  - Must be equal to or less than 64 characters
   - Must match regex `[a-zA-Z0-9\-\_]`
 
 **Headers**
@@ -72,7 +82,7 @@ The Body should be the first element added to the channel's queue
 
 **Responses**
 
-- Successful addition of data to the Channe's queue
+- Successful addition of data to the Channel's queue
   - Status = 200 OK
   - Body = `{status: 200, message: "Success"}`
 - Successful creation of channel
@@ -101,7 +111,7 @@ Making a `GET /api/:channel` request to Qer should return the next payload in th
 **URI Parameters**
 
 - :channel
-  - Must be less than 64 characters
+  - Must be equal to or less than 64 characters
   - Must match regex `[a-zA-Z0-9\-\_]`
 
 **Headers**
@@ -140,7 +150,7 @@ The HTTP Body should remain empty for this request.
 **URI Parameters**
 
 - :channel
-  - Must be less than 64 characters
+  - Must be equal to or less than 64 characters
   - Must match regex `[a-zA-Z0-9\-\_]`
 
 **Headers**
@@ -196,7 +206,7 @@ Making a `GET /api/:channel/meta` request to Qer should return the meta data abo
 **URI Parameters**
 
 - :channel
-  - Must be less than 64 characters
+  - Must be equal to or less than 64 characters
   - Must match regex `[a-zA-Z0-9\-\_]`
 
 **Headers**
