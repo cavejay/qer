@@ -4,7 +4,7 @@ Solution Name: Qer
 
 Spec Author: cavejay@github
 
-Spec Version: 0.0.3
+Spec Version: 0.0.4
 
 ## Purpose
 
@@ -106,7 +106,7 @@ The Body should be the first element added to the channel's queue
 
 ### [GET] /api/:channel
 
-Making a `GET /api/:channel` request to Qer should return the next payload in the channel's queue. The Body of the GET request should be empty. If there are no more payloads in the Channel's queue then this should be informed via a response code (below)
+Making a `GET /api/:channel` request to Qer should return the next payload in the channel's queue. The Body of the GET request should be empty. If there are no more payloads in the Channel's queue then ir should be treated as an uncreated channel and the client should be informed via a response code (below)
 
 **URI Parameters**
 
